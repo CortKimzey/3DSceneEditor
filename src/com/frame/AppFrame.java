@@ -7,7 +7,7 @@ package com.frame;
 
 import java.awt.*;
 import java.awt.event.*;
-import com.canvas.SceneCanvas;
+import com.canvas.AppCanvas;
 
 public class AppFrame extends Frame {
     public AppFrame() 
@@ -16,13 +16,12 @@ public class AppFrame extends Frame {
       addWindowListener(new WindowAdapter() {
          public void windowClosing(WindowEvent e) {System.exit(0);}
       });
-      setSize(1080, 920);
+      setSize(1450, 920);
 
-      SceneCanvas scene = new SceneCanvas();
+      AppCanvas scene = new AppCanvas(1450, 920);
+      //scene.setSize(500,500);
 
       add(scene);
       setVisible(true);
-
-      scene.setSize(500,500);
    }
 }
