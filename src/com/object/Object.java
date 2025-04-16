@@ -21,6 +21,8 @@ public class Object
     private ArrayList<Matrix> vnList = new ArrayList<Matrix>();
     private ArrayList<FaceList> fList = new ArrayList<FaceList>();
 
+    private String name = "Object";
+
     public Object(java.io.File objFile) throws FileNotFoundException
     {
         Scanner file = new Scanner(objFile);
@@ -91,4 +93,13 @@ public class Object
         fList.add(newFace);
     }
 
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
 }

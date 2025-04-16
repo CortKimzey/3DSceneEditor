@@ -5,12 +5,14 @@
 
 package com.frame;
 
+import java.io.IOException;
+
 import java.awt.*;
 import java.awt.event.*;
 import com.canvas.AppCanvas;
 
 public class AppFrame extends Frame {
-    public AppFrame() 
+    public AppFrame() throws IOException
     {
       super("3D Scene Editor");
       addWindowListener(new WindowAdapter() {
