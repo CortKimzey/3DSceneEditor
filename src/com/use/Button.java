@@ -8,22 +8,31 @@ package com.use;
 import java.awt.*;
 import java.awt.event.*;
 
-import com.use.Box2D;
+import com.use.BoxElement;
 
-public class Button extends Box2D 
+public class Button extends BoxElement 
 {
-   private String text;
+     protected String text;
+     protected int strDepth;
 
-   public Button(int width, int height, String text)
-   {
-        super(width, height);
+     public Button(int width, int height, int x, int y, String text)
+     {
+          super(width, height, x, y);
 
-        this.text = text;
-   }
+          strDepth = (height - 10) / 2;
+          strDepth += 10;
 
-   public void paint(Graphics g, Color color)
+          this.text = text;
+     }
+
+     public void onClick()
+     {
+          System.out.println("Low Click");
+     }
+
+   public void paint(Graphics2D g, Color color)
    {
         drawBox(g, color);
-        g.drawString(text, loc[0], loc[1] + 15);
+        g.drawString(text, loc[0] + 5, loc[1] + strDepth);
    }
 }

@@ -12,46 +12,73 @@ import com.object.Object;
 import java.awt.*;
 import java.awt.event.*;
 
-import com.use.Box2D;
-import com.use.Point2D;
+import com.editor.ObjList;
+import com.use.BoxElement;
 
-public class Editor extends Box2D {
-   private boolean active = false;
+public class Editor extends BoxElement {
+   private ObjEditor edit;
    private ObjList list;
 
-   public Editor(int width, int height, Box2D scene)
+   public Editor(int width, int height, int sceneHeight, int trX, int trY)
    {
-      super(300, scene.getH(), scene.getCNR(1).getX(), scene.getCNR(1).getY());
+      super(300, sceneHeight, trX, trY);
       list = new ObjList(width, height, cnr[0].getX(), cnr[1].getY());
-      //edit = new ObjEditor(300, this.height - list.getH(), list.getCNR(3).getX(), list.getCNR(3).getY());
+
+      edit = new ObjEditor(300, height - 300, list.getCNR(3).getX(), list.getCNR(3).getY());
    }
 
-   public void onClick(int x, int y)
+   public void updateSize(int width, int height, int sceneHeight, int trX, int trY)
    {
-      
-      list.onClick(x,y);
+      setH(sceneHeight);
+      setLoc(trX, trY);
+      list.updateSize(cnr[0].getX(), cnr[0].getY());
+      edit.updateSize(list.getCNR(3).getX(), list.getCNR(3).getY());
    }
 
-   public void setSize(int width, int height, Box2D scene)
+   public Object giveRoot()
    {
-      setH(scene.getH());
-      setLoc(scene.getCNR(1).getX(), scene.getCNR(1).getY());
-      list.setSize(cnr[0].getX(), cnr[0].getY());
+      return list.giveRoot();
    }
 
    public void addObject(File inputFile) throws FileNotFoundException
    {
-      list.append(new Object(inputFile));
+      list.append(inputFile);
    }
 
-  public void paint(Graphics g)
+  public void paint(Graphics2D g)
   {
       drawBox(g, Color.darkGray);
       list.paint(g);
+      edit.paint(g);
   }
 
-  public boolean isClicked(int x, int y)
+  public void keyPressed(char in)
+   {
+      if (edit.isActive())
+         edit.keyPressed(in);
+      else if (list.isActive())
+         list.keyPressed(in);
+   }
+
+  public void setInactive()
   {
-      return inBox(x,y);
+      active = false;
+      list.setInactive();
+      edit.setInactive();
   }
+
+  public void onClick(int x, int y)
+   {
+      active = true;
+      if (list.isClicked(x,y))
+      {
+         edit.setInactive();
+         list.onClick(x,y);
+      }
+      else if (edit.isClicked(x,y))
+      {
+         list.setInactive();
+         edit.onClick(x,y);
+      }
+   }
 }

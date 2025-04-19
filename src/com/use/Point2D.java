@@ -6,13 +6,13 @@
 package com.use;
 
 public class Point2D {
-   int x;
-   int y;
+  protected int x;
+  protected int y;
 
-   public Point2D(int x, int y)
-   {
-        this.x = x;
-        this.y = y;
+  public Point2D(int x, int y)
+  {
+    this.x = x;
+    this.y = y;
    }
 
    public void setXY(int x, int y)
@@ -36,7 +36,17 @@ public class Point2D {
         return x;
    }
 
+   public int x()
+   {
+        return x;
+   }
+
    public int getY()
+   {
+        return y;
+   }
+
+   public int y()
    {
         return y;
    }
