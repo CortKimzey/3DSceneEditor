@@ -20,8 +20,15 @@ public class SceneEditor {
    {
       AppFrame applicationWindow = new AppFrame();
 
-      //Object test = new Object(new java.io.File("c:\\Users\\cortk\\OneDrive\\College\\UTD\\Spring 2025\\CS 4361\\Project\\Interactive 3D Room Scene Editor\\cube.obj"));
-      //File directory = new File("C://Program Files//");
-      //Desktop.getDesktop().open(directory);
+      double[] name = new double[3];
+      //System.out.println(name[0]);
+      change(name);
+      System.out.println(name[0]);
+   }
+
+   public static void change(double[] name)
+   {
+      name[0] = 1.5;
+      name[1] = 1.5;
    }
 }
