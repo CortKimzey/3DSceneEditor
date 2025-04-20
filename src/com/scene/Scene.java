@@ -20,6 +20,8 @@ import com.use.BoxElement;
 public class Scene extends BoxElement
 {
    private double[][] zBuffer;
+   private double min = 1;
+   private double max = 0;
    private int buffW, buffH;
    private Object root = null;
    private View viewMat;
@@ -59,6 +61,33 @@ public class Scene extends BoxElement
   {
       resetBuffer();
 
+      //triangleTest(g);
+
+      paintBuffer(g);
+  }
+
+  private void paintTriangles(Graphics2D g, Object obj)
+  {
+      ArrayList<Face2D> f2DList = obj.triangulate(v2DList(obj.getVList()));
+      for (int x = 0, lcv = f2DList.size(); x < lcv; x++)
+      {
+         f2DList.get(x).paint2(g);
+      }
+  }
+
+  private void triangleTest(Graphics2D g)
+  {
+      Object hold = root;
+      paintTriangles(g, hold);
+      while (hold.isNext())
+      {
+         hold = hold.getNext();
+         paintTriangles(g, hold);
+      }
+  }
+
+  private void paintBuffer(Graphics2D g)
+  {
       Object hold = root;
       paintObj(g, hold);
       while (hold.isNext())
@@ -66,15 +95,24 @@ public class Scene extends BoxElement
          hold = hold.getNext();
          paintObj(g, hold);
       }
+
+      setMinMax();
+      Color color;
       for (int x = 0; x < this.width; x++)
       {
          for (int y = 0; y < this.height; y++)
          {
             if (zBuffer[x][y] < Double.POSITIVE_INFINITY)
-               g.setColor(Color.BLACK);
+            {
+               //System.out.println(zBuffer[x][y]);
+               int gray = (int)(255 * (zBuffer[x][y] - min) / (max - min));
+               gray = Math.max(0, Math.min(255, gray)); // clamp
+               color = new Color(gray, gray, gray);
+            }
             else
-               g.setColor(Color.WHITE);
+               color = Color.WHITE;
 
+            g.setColor(color);
             g.drawLine(loc[0] + x, loc[1] + y, loc[0] + x, loc[1] + y);
          }
       }
@@ -87,9 +125,29 @@ public class Scene extends BoxElement
             zBuffer[x][y] = Double.POSITIVE_INFINITY;
   }
 
+  private void setMinMax()
+  {
+      min = 1;
+      max = 0;
+
+      for (int x = 0; x < this.width; x++)
+      {
+         for (int y = 0; y < this.height; y++)
+         {
+            if (zBuffer[x][y] < Double.POSITIVE_INFINITY)
+            {
+               if (zBuffer[x][y] < min)
+                  min = zBuffer[x][y];
+               if (zBuffer[x][y] > max)
+                  max = zBuffer[x][y];
+            }
+         }
+      }
+  }
+
   private void paintObj(Graphics2D g, Object obj)
   {
-      ArrayList<Face2D> f2DList = obj.triangulate(v2DList(obj.getVList()));
+      ArrayList<Face2D> f2DList = obj.triangulate(v2DList(obj.getVList()), this.width, this.height);
       for (int x = 0, lcv = f2DList.size(); x < lcv; x++)
       {
          f2DList.get(x).addFace(zBuffer);

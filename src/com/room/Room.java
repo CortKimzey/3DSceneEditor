@@ -25,7 +25,7 @@ public class Room extends BoxElement
       scene = new Scene(width, height, menuHeight, menuBottom);
       edit = new Editor(width, height, this.height, scene.getCNR(1).getX(), scene.getCNR(1).getY());
       try {
-         edit.addObject(new java.io.File("cube.obj"));
+         edit.addObject(new java.io.File("monkey.obj"));
       } catch (java.io.FileNotFoundException e) {
          System.out.println("No cube file!");
       }

@@ -248,6 +248,59 @@ public class Matrix {
         return output;
     }
 
+    public static Matrix invertMatrix(Matrix A)
+    {
+        int[] dims = A.getDim();
+        int n = dims[0];
+        int m = dims[1];
+
+        Matrix augmented = new Matrix(n, 2 * n);
+
+        // Create augmented matrix [A | I]
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < n; col++) {
+                augmented.setLoc(row, col, A.getLoc(row, col));
+            }
+            for (int col = 0; col < n; col++) {
+                augmented.setLoc(row, col + n, (row == col) ? 1.0 : 0.0);
+            }
+        }
+
+        // Perform Gauss-Jordan elimination
+        for (int i = 0; i < n; i++) {
+            // Find pivot
+            double pivot = augmented.getLoc(i, i);
+            if (Math.abs(pivot) < 1e-10) {
+                throw new IllegalArgumentException("Matrix is singular and cannot be inverted.");
+            }
+
+            // Normalize pivot row
+            for (int j = 0; j < 2 * n; j++) {
+                augmented.setLoc(i, j, augmented.getLoc(i, j) / pivot);
+            }
+
+            // Eliminate other rows
+            for (int k = 0; k < n; k++) {
+                if (k == i) continue;
+                double factor = augmented.getLoc(k, i);
+                for (int j = 0; j < 2 * n; j++) {
+                    double value = augmented.getLoc(k, j) - factor * augmented.getLoc(i, j);
+                    augmented.setLoc(k, j, value);
+                }
+            }
+        }
+
+        // Extract inverse from augmented matrix
+        Matrix inverse = new Matrix(n, n);
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < n; col++) {
+                inverse.setLoc(row, col, augmented.getLoc(row, col + n));
+            }
+        }
+
+        return inverse;
+    }
+
     public void printMatrix()
     {
         for(int x = 0; x < row; x++)

@@ -127,6 +127,76 @@ public class Object extends BoxElement
         fList.add(face);
     }
 
+    public ArrayList<Face2D> triangulate(ArrayList<Vert2D> v2DList, int width, int height)
+    {
+        ArrayList<Face2D> output = new ArrayList<Face2D>();
+        int size = 0;
+
+        for (int x = 0, lcv = fList.size(); x < lcv; x++)
+        {
+            Face f = fList.get(x);
+            ArrayList<Integer> indices = new ArrayList<>(0);
+
+            for (int i = 0; i < f.getVNum(); i++)
+                indices.add(f.getV(i));
+
+            while (indices.size() > 3)
+            {
+                boolean earFound = false;
+                for (int i = 0; i < indices.size(); i++)
+                {
+                    int prev = indices.get((i - 1 + indices.size()) % indices.size());
+                    int curr = indices.get(i);
+                    int next = indices.get((i + 1) % indices.size());
+
+                    Vert2D a = v2DList.get(prev);
+                    Vert2D b = v2DList.get(curr);
+                    Vert2D c = v2DList.get(next);
+
+                    if (Vert2D.cross(a, b, c) >= 0)
+                        continue;
+
+                    boolean isEar = true;
+                    for (int j = 0; j < f.getVNum(); j++)
+                    {
+                        if (f.getV(j) == prev || f.getV(j) == curr || f.getV(j) == next)
+                            continue;
+                        if (Vert2D.isPointInTriangle(v2DList.get(f.getV(j)), a, b, c))
+                        {
+                            isEar = false;
+                            break;
+                        }
+                    }
+
+                    if (isEar)
+                    {
+                        output.add(new Face2D(a,b,c, width, height));
+                        if (!output.get(size++).setInvM())
+                            output.remove(--size);
+                        indices.remove(i);
+                        earFound = true;
+                        break;
+                    }
+                }
+
+                if (!earFound)
+                {
+                    //System.err.println("Warning: Non-simple polygon or bad vertex order");
+                    break;
+                }
+            }
+
+            if (indices.size() == 3)
+            {
+                output.add(new Face2D(v2DList.get(indices.get(0)), v2DList.get(indices.get(1)), v2DList.get(indices.get(2)), width, height));
+                if (!output.get(size++).setInvM())
+                    output.remove(--size);
+            }
+        }
+
+        return output;
+    }
+
     public ArrayList<Face2D> triangulate(ArrayList<Vert2D> v2DList)
     {
         ArrayList<Face2D> output = new ArrayList<Face2D>();
