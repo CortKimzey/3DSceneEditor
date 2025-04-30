@@ -1,0 +1,72 @@
+// Team 5
+// Professor Pushpa Kumar
+// CS 4361.001
+// Description: 
+
+package com.point;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import com.point.Vertex;
+import com.point.Matrix;
+import com.point.Vertex2D;
+
+public class Point
+{
+    private Vertex v;
+    private Matrix vt;
+    private Vector vn;
+
+    public Point(Vertex v, Matrix vt, Vector vn)
+    {
+        this.v = v;
+        this.vt = vt;
+        this.vn = vn;
+    }
+
+    public Vertex v()
+    {
+        return this.v;
+    }
+
+    public Matrix vt()
+    {
+        return this.vt;
+    }
+
+    public Vector vn()
+    {
+        return this.vn;
+    }
+
+    public static boolean isConvex(Point A, Point B, Point C)
+    {
+        return Vertex2D.isConvex(A.v().get2D(), B.v().get2D(), C.v().get2D());
+    }
+
+    public static boolean inTriangle(Point P, Point A, Point B, Point C)
+    {
+        //System.out.println("Triangle Test");
+        //Vertex2D p = P.v().get2D();
+        //p.print();
+        //Vertex2D a = A.v().get2D();
+        //a.print();
+        //Vertex2D b = B.v().get2D();
+        //b.print();
+        //Vertex2D c = C.v().get2D();
+        //c.print();
+        return Vertex2D.inTriangle(P.v().get2D(), A.v().get2D(), B.v().get2D(), C.v().get2D());
+    }
+
+    public void quickProjection(int x, int y)
+    {
+        v.quickProjection(x,y);
+    }
+
+    public void print()
+    {
+        v.print();
+        v.get2D().print();
+    }
+}

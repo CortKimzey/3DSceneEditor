@@ -1,0 +1,82 @@
+// Cortland Kimzey
+// Professor Pushpa Kumar
+// CS 4361.001
+// Description: 
+
+package com.object;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import java.util.ArrayList;
+
+import com.point.Point;
+import com.point.Vector;
+
+public class Face
+{
+    private ArrayList<Point> points = new ArrayList<Point>(0);
+    private int vNum;
+    private int[][] data;
+    private Material mat;
+    private int s = 0;
+
+    public Face(int vNum, Material mat, int s)
+    {
+        this.data = new int[vNum][3];
+        this.vNum = vNum;
+        this.mat = mat;
+        this.s = s;
+    }
+
+    public void addP(Point newPoint)
+    {
+        this.points.add(newPoint);
+    }
+
+    public int getVNum()
+    {
+        return this.vNum;
+    }
+
+    public int getV(int v)
+    {
+        return data[v][0];
+    }
+
+    public void setV(int v, int vt, int vn, int num)
+    {
+        this.data[num][0] = v;
+        this.data[num][1] = vt;
+        this.data[num][2] = vn;
+    }
+
+    public Point getP(int index)
+    {
+        int point = 0;
+
+        for (int lcv = 0; lcv < vNum; lcv++, point++)
+            if (data[lcv][0] == index)
+                break;
+        
+        return points.get(point);
+    }
+
+    public Material getMat()
+    {
+        return this.mat;
+    }
+
+    public void project()
+    {
+        Vector n = Vector.normal(points.get(0).v(), points.get(1).v(), points.get(2).v());
+        n.abs();
+
+        if (n.x() > n.y() && n.x() > n.z())
+            points.forEach( p -> { p.quickProjection(1,2);});
+        else if (n.y() > n.z())
+            points.forEach( p -> { p.quickProjection(0,2);});
+        else
+            points.forEach( p -> { p.quickProjection(0,1);});
+    }
+}
