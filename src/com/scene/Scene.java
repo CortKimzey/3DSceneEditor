@@ -231,9 +231,9 @@ public class Scene extends BoxElement
                             }});
                         break;
                     case 7:
-                        obj.getTList().forEach( t -> { t.setTBLR(this.width, this.height);if (viewMat.isFacing(t.getN(), t.getC())){
+                        obj.getTList().forEach( t -> { t.setTBLR(this.width, this.height);
                                 t.paint(zBuffer, cBuffer, viewMat.getEye());
-                            }});
+                            });
                         break;
                 }
             }
