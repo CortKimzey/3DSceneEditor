@@ -22,6 +22,8 @@ public class Vertex extends Vector
     private Matrix ClipPosition = new Matrix(4,1);
     private int width, height;
 
+    private int vNum = 0;
+
     public Vertex(float x, float y, float z, float w)
     {
         super(x/w, y/w, z/w);
@@ -32,6 +34,16 @@ public class Vertex extends Vector
     {
         super(in[0]/in[3], in[1]/in[3], in[2]/in[3]);
         point.set(in);
+    }
+
+    public void setVNum(int vNum)
+    {
+        this.vNum = vNum;
+    }
+
+    public int getVNum()
+    {
+        return vNum;
     }
 
     public void set(float x, float y, float z, float w)
@@ -45,21 +57,23 @@ public class Vertex extends Vector
         point.set(3, w);
     }
 
-    public void interpolate()
+    private void interp()
     {
         for (int x = 0; x < 3; x++)
-            point.set(x, data[x] / data[3]);
+            data[x] = point.get(x) / point.get(3);
     }
 
     public void transform2D(int width, int height, Projection projMat, View viewMat)
     {
         this.width = width;
         this.height = height;
+        //System.out.println("Vert");
         ClipPosition = Matrix.mult(projMat, viewMat, point);
-        //ndc.interpolate();
+        //ClipPosition.print();
         xy.setX(((ClipPosition.get(0) / ClipPosition.get(3)) + 1) * 0.5f * width);   // X coordinate
         xy.setY((1 - (ClipPosition.get(1) / ClipPosition.get(3))) * 0.5f * height);  // Y coordinate
-        z = ((ClipPosition.get(2) / ClipPosition.get(3)) + 1) / 2;
+        z = (ClipPosition.get(2) / ClipPosition.get(3));
+        z = ((z+1)/2);
     }
 
     public byte clipTransform(int width, int height, Projection projMat, View viewMat)
@@ -119,6 +133,12 @@ public class Vertex extends Vector
     {
         xy.setX(data[x]);
         xy.setY(data[y]);
+    }
+
+    public void manipulate(Matrix manip)
+    {
+        point = Matrix.mult(manip, point);
+        interp();
     }
 
     //Getting 2D Data

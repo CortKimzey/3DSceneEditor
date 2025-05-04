@@ -21,9 +21,6 @@ public class Material
     private float ns = 500;
     private double d = 1;
     private int illum = 2;
-    //private Matrix ni;
-    //private Texture text = null;
-    //private Texture bump = null;
 
     public Material(String name)
     {
@@ -93,6 +90,17 @@ public class Material
     public void setNi()
     {
 
+    }
+
+    public void write(java.io.FileWriter file) throws java.io.IOException
+    {
+        file.write("newmtl " + name);
+        file.write("\nNs " + ns);
+        file.write("\nKa " + ka.write());
+        file.write("\nKd " + kd.write());
+        file.write("\nKs " + ks.write());
+        file.write("\nd " + d);
+        file.write("\nillum " + illum + "\n");
     }
 
     public String getName()

@@ -41,6 +41,67 @@ public class Matrix
                 data[loc] = input[x][y];
     }
 
+    //Functions for vertex manipulation
+    public static Matrix identity(int size)
+    {
+        float[] outData = new float[size*size];
+        for (int x = 0, loc = 0; x < size; x++)
+            for (int y = 0; y < size; y++, loc++)
+                outData[loc] = (x == y)? 1 : 0;
+
+        return new Matrix(outData, size, size);
+    }
+
+    public static Matrix translation(float[] trans, boolean inv)
+    {
+        Matrix output = Matrix.identity(4);
+
+        for (int x = 0, y = 3; x < 3; x++)
+            output.set(x,y, (inv)? ((-1)*trans[x]) : trans[x]);
+
+        return output;
+    }
+
+    public static Matrix rotate(float theta, char axis)
+    {
+        double rad = (double)theta * (Math.PI / 180);
+        Matrix output = Matrix.identity(4);
+
+        if (axis == 120)
+        {
+            output.set(1,1, (float)Math.cos(rad));
+            output.set(2,2, (float)Math.cos(rad));
+            output.set(1,2, (float)Math.sin(rad));
+            output.set(2,1, (float)-Math.sin(rad));
+        }
+        else if (axis == 121)
+        {
+            output.set(0,0, (float)Math.cos(rad));
+            output.set(2,2, (float)Math.cos(rad));
+            output.set(0,2, (float)-Math.sin(rad));
+            output.set(2,0, (float)Math.sin(rad));
+        }
+        else if (axis == 122)
+        {
+            output.set(0,0, (float)Math.cos(rad));
+            output.set(1,1, (float)Math.cos(rad));
+            output.set(0,1, (float)-Math.sin(rad));
+            output.set(1,0, (float)Math.sin(rad));
+        }
+
+        return output;
+    }
+
+    public static Matrix scale(float[] scal)
+    {
+        Matrix output = Matrix.identity(4);
+
+        for (int x = 0, y = 0; x < 3; x++, y++)
+            output.set(x,y, (scal[x] == 0)? 1:scal[x]);
+
+        return output;
+    }
+
     //Getting the Data in the Matrix
     public float get(int loc)
     {
@@ -236,6 +297,15 @@ public class Matrix
 
 
     //Output Data
+    public String write()
+    {
+        String output = "";
+        for (int x = 0, loc = 0; x < row; x++)
+            for (int y = 0; y < col; y++, loc++)
+                output += data[loc] + " ";
+        return output;
+    }
+
     public void print()
     {
         for (int x = 0, loc = 0; x < this.row; x++)

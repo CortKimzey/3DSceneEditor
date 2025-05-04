@@ -150,6 +150,8 @@ public class AppCanvas extends Canvas implements KeyListener {
                 return '9';
             case KeyEvent.VK_PERIOD:
                 return '.';
+            case KeyEvent.VK_MINUS:
+                return '-';
             case KeyEvent.VK_BACK_SPACE:
                 return 8;
             default:

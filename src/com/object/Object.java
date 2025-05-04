@@ -20,9 +20,9 @@ import com.point.Vertex;
 import com.point.Vector;
 import com.point.Point;
 
-import com.use.BoxElement;
+import com.use.Button;
 
-public class Object //extends BoxElement
+public class Object extends Button
 {
     private ArrayList<Material> mtlList = new ArrayList<Material>(0);
     private ArrayList<Vertex> vList = new ArrayList<Vertex>(0);
@@ -31,9 +31,11 @@ public class Object //extends BoxElement
     private ArrayList<Face> fList = new ArrayList<Face>(0);
     private ArrayList<Triangle> tList = new ArrayList<Triangle>(0);
 
+    private float[] trans = new float[]{0,0,0};
+
     public Object(File objFile) throws FileNotFoundException
     {
-        //super(x, y);
+        super(0,0,150,20, "Object");
 
         Scanner file = new Scanner(objFile);
         int material = 0;
@@ -62,8 +64,30 @@ public class Object //extends BoxElement
 
         file.close();
 
+        /**
+
+        for (int g = 0; g < fList.size(); g++)
+        {
+            fList.get(g).setFace(g);
+            if (g == 494)
+                fList.get(g).print();
+        }
+        for (int g = 0; g < vList.size(); g++)
+        {
+            vList.get(g).setVNum(g);
+        }
+
+        */
+
         triangulate();
-        //System.out.println(tList.size());
+
+        /**
+        for (int g = 0; g < tList.size(); g++)
+        {
+            if (tList.get(g).getFace() == 494)
+                tList.get(g).printV();
+        }
+        */
     }
 
     private void mtl(StringTokenizer line, String path)
@@ -181,7 +205,7 @@ public class Object //extends BoxElement
             if (line.hasMoreTokens())
                 test += " ";
         }
-        //this.name = test;
+        this.text = test;
     }
 
     private void setV(StringTokenizer line)
@@ -296,7 +320,7 @@ public class Object //extends BoxElement
 
                     if (isEar)
                     {
-                        tList.add(new Triangle(a,b,c, f.getMat()));
+                        tList.add(new Triangle(a,b,c, f.getMat(), f.getFace()));
                         indices.remove(i);
                         earFound = true;
                         break;
@@ -311,7 +335,7 @@ public class Object //extends BoxElement
             }
 
             if (indices.size() == 3)
-                tList.add(new Triangle(f.getP(indices.get(0)), f.getP(indices.get(1)), f.getP(indices.get(2)), f.getMat()));
+                tList.add(new Triangle(f.getP(indices.get(0)), f.getP(indices.get(1)), f.getP(indices.get(2)), f.getMat(), f.getFace()));
         }
     }
 
@@ -323,6 +347,71 @@ public class Object //extends BoxElement
     public ArrayList<Vertex> getVList()
     {
         return vList;
+    }
+
+    public void write(java.io.FileWriter file) throws java.io.IOException
+    {
+        file.write("o " + this.text);
+        
+        mtlList.forEach(mtl -> {
+            try {
+                mtl.write(file);
+            } catch (java.io.IOException e){
+                //throw new java.io.IOException("Error in vt");
+            }
+        });
+
+        vList.forEach(v -> { 
+            try {
+                file.write("v " + v.write());
+            } catch (java.io.IOException e){
+                //throw new java.io.IOException("Error in v");
+            }
+        });
+
+        vtList.forEach(vt -> {
+            try {
+                file.write("vt " + vt.write());
+            } catch (java.io.IOException e){
+                //throw new java.io.IOException("Error in vt");
+            }
+        });
+
+        vnList.forEach(vn -> {
+            try {
+                file.write("vn " + vn.write());
+            } catch (java.io.IOException e){
+                //throw new java.io.IOException("Error in vt");
+            }
+        });
+
+        fList.forEach(f -> {
+            try {
+                f.write(file);
+            } catch (java.io.IOException e){
+                //throw new java.io.IOException("Error in vt");
+            }
+        });
+    }
+
+    public void manipulate(Matrix man)
+    {
+        vList.forEach(v -> {
+            v.manipulate(man);
+        });
+    }
+
+    public void updateTrans(float[] trans)
+    {
+        this.trans[0] += trans[0];
+        this.trans[1] += trans[1];
+        this.trans[2] += trans[2];
+    }
+
+    public float[] getTrans()
+    {
+        System.out.println("Trans: " + trans[0] + " " + trans[1] + " " + trans[2]);
+        return this.trans;
     }
 
     public ArrayList<Triangle> getTList()

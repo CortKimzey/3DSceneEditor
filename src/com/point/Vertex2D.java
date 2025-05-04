@@ -77,7 +77,7 @@ public class Vertex2D
 
     public void print()
     {
-        System.out.println("X: " + x + ", Y: " + y);
+        System.out.println("X: " + x2D + ", Y: " + y2D);
     }
 
     public String toString()

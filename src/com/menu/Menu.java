@@ -16,17 +16,25 @@ import com.canvas.DimCanvas;
 
 import com.room.Room;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+
 import com.use.BoxElement;
+import com.use.Button;
 
 public class Menu extends BoxElement
 {
    private DimCanvas d;
+   //private File fileControl;
    private ArrayList<Room> rooms = new ArrayList<Room>(1);
+   private Button addFile = new Button(0,0,80,22, "Add Object");
 
    public Menu(DimCanvas d)
    {  
       super(0, 0, d.getWidth(), 22);
       this.d = d;
+      //fileControl = new File(0,0,30,22);
 
       rooms.add(new Room(0, 22, d));
       rooms.get(0).setActive(true);
@@ -43,10 +51,31 @@ public class Menu extends BoxElement
 
    public void onClick(int x, int y) throws IOException
    {
-      rooms.forEach(room -> {
-         if (room.isActive())
-            room.onClick(x,y);
-      });
+      if (isClicked(x,y))
+      {
+         if (addFile.isClicked(x,y))
+         {
+            rooms.get(0).addObject(testOut());
+         }
+      }
+      else
+      {
+         rooms.forEach(room -> {
+            if (room.isActive())
+               room.onClick(x,y);
+         });
+      }
+   }
+
+   private java.io.File testOut()
+   {
+      JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+      int returnValue = fileChooser.showOpenDialog(null);
+      if (returnValue == JFileChooser.APPROVE_OPTION) 
+         return fileChooser.getSelectedFile();
+
+      return null;
    }
 
 
@@ -74,5 +103,7 @@ public class Menu extends BoxElement
          if (room.isActive())
             room.paint(g);
       });
+
+      addFile.drawButton(g, Color.gray);
    }
 }

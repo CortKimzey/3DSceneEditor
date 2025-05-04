@@ -13,7 +13,7 @@ import com.point.Vector;
 
 public class View extends Matrix
 {
-   private Vector eye = new Vector(5f, 5f, 5f);
+   private Vector eye = new Vector(3f, 3f, 3f);
    private Vector center = new Vector(0f, 0f, 0f);
    private Vector up = new Vector(0f, 1f, 0f);
    private Vector newF = new Vector();

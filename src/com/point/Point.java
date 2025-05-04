@@ -64,6 +64,11 @@ public class Point
         v.quickProjection(x,y);
     }
 
+    public void vOut()
+    {
+        System.out.print(v.getVNum());
+    }
+
     public void print()
     {
         v.print();

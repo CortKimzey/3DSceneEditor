@@ -12,16 +12,21 @@ import java.awt.event.*;
 
 import com.canvas.DimCanvas;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import com.editor.Editor;
 import com.scene.Scene;
 
 import com.use.BoxElement;
+import com.use.Button;
 
 public class Room extends BoxElement
 {
     private DimCanvas d;
     private Editor editor;
     private Scene scene;
+    private String roomName = "3D Room";
 
     public Room(int x, int y, DimCanvas d)
     {
@@ -45,25 +50,36 @@ public class Room extends BoxElement
         active = true;
         if (editor.isClicked(x,y))
         {
-            //scene.setInactive();
-            //edit.onClick(x, y);
+            scene.setInactive();
+            editor.onClick(x, y);
         }
         else if (scene.isClicked(x,y))
         {
-            //editor.setInactive();
+            editor.setInactive();
             scene.onClick(x,y);
         }
     }
 
+    public void addObject(File file)
+    {
+        try {
+            editor.addObject(file);
+        } catch (java.io.FileNotFoundException e) {
+            System.out.println("Could not find file.");
+        }
+    }
 
     public void keyPressed(char in)
     {
-        scene.keyPressed(in);
+        if (scene.isActive())
+            scene.keyPressed(in);
+        else if (editor.isActive())
+            editor.keyPressed(in);
     }
 
     public void onDrag(int x, int y)
     {
-      //if (scene.isActive())
+      if (scene.isClicked(x,y))
         scene.onDrag(x,y);
     }
 

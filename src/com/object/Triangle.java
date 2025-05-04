@@ -29,12 +29,15 @@ public class Triangle
     private Vector normal;
     private Vector center;
 
-    public Triangle(Point A, Point B, Point C, Material mat)
+    private int face = 0;
+
+    public Triangle(Point A, Point B, Point C, Material mat, int face)
     {
         abc[0] = A;
         abc[1] = B;
         abc[2] = C;
         this.mat = mat;
+        this.face = face;
 
         //System.out.println("Triangle: " + num++);
         //System.out.println("VN 1");
@@ -56,6 +59,11 @@ public class Triangle
         center = Vector.center(A.v(), B.v(), C.v());
 
         setTBLR(800, 800);
+    }
+
+    public int getFace()
+    {
+        return face;
     }
 
     public void setTBLR(int width, int height)
@@ -104,7 +112,11 @@ public class Triangle
                 invM.set(3 + x, abc[x].v().get2D().y());
                 invM.set(6 + x, 1f);
             }
+            //System.out.println("Not INV");
+            //invM.print();
             invM.invert();
+            //System.out.println("INV");
+            //invM.print();
             return true;
         }
     }
@@ -147,6 +159,9 @@ public class Triangle
 
     public void paint(float[][] zBuff)
     {
+        //if (face == 494)
+        //{
+        //System.out.println("Face: " + face);
         setInvM();
         for (int x = l; x < r; x++)
         {
@@ -161,11 +176,12 @@ public class Triangle
                     float z = depth(bar.get(0), bar.get(1), bar.get(2));
                     if (z < zBuff[x][y])
                     {
-                        zBuff[x][y] = z;
+                        zBuff[x][y] = (z > 1)? 1f:z;
                     }
                 }
             }
         }
+        //}
     }
 
     public void paint(float[][] zBuff, Color[][] cBuff, Vector eye)
@@ -185,7 +201,7 @@ public class Triangle
 
                         Vector ambient = Vector.mult(mat.getKa(), 0.3f);
 
-                        Vector L = Vector.sub(new Vector(1,1,1), surfacePoint(bar));
+                        Vector L = Vector.sub(new Vector(18,12,23), surfacePoint(bar));
                         L.normalize();
                         Vector N = Vector.sum(Vector.mult(abc[0].vn(), bar.x()),Vector.mult(abc[1].vn(), bar.y()),Vector.mult(abc[2].vn(), bar.z()));
                         N.normalize();
@@ -257,7 +273,7 @@ public class Triangle
                     if (z < zBuff[x][y])
                     {
                         zBuff[x][y] = z;
-                        Vector L = Vector.sub(new Vector(1,1,1), surfacePoint(bar));
+                        Vector L = Vector.sub(new Vector(18,12,23), surfacePoint(bar));
                         L.normalize();
                         Vector N = Vector.sum(Vector.mult(abc[0].vn(), bar.x()),Vector.mult(abc[1].vn(), bar.y()),Vector.mult(abc[2].vn(), bar.z()));
                         N.normalize();
@@ -292,7 +308,7 @@ public class Triangle
                         Vector V = Vector.sub(eye, surface);
                         V.normalize();
                         
-                        Vector L = Vector.sub(new Vector(-1,-1,-1), surface);
+                        Vector L = Vector.sub(new Vector(18,12,23), surface);
                         L.normalize();
                         
                         Vector N = Vector.sum(Vector.mult(abc[0].vn(), bar.x()),Vector.mult(abc[1].vn(), bar.y()),Vector.mult(abc[2].vn(), bar.z()));
@@ -327,5 +343,16 @@ public class Triangle
         Line.paint(abc[0].v(), abc[1].v(), zBuff, cBuff);
         Line.paint(abc[1].v(), abc[2].v(), zBuff, cBuff);
         Line.paint(abc[2].v(), abc[0].v(), zBuff, cBuff);
+    }
+
+    public void printV()
+    {
+        System.out.print("V1: ");
+        abc[0].vOut();
+        System.out.print("\nV2: ");
+        abc[1].vOut();
+        System.out.print("\nV3: ");
+        abc[2].vOut();
+        System.out.print("\n");
     }
 }

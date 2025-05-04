@@ -154,14 +154,14 @@ public class Scene extends BoxElement
 
     private void grayScale()
     {
-        float min = 1f;
-        float max = 0f;
+        float min = Float.POSITIVE_INFINITY;
+        float max = Float.NEGATIVE_INFINITY;
 
         for (int x = 0; x < this.width; x++)
         {
             for (int y = 0; y < this.height; y++)
             {
-                if (zBuffer[x][y] < Double.POSITIVE_INFINITY)
+                if (zBuffer[x][y] < Float.POSITIVE_INFINITY)
                 {
                     if (zBuffer[x][y] < min)
                         min = zBuffer[x][y];
@@ -175,7 +175,7 @@ public class Scene extends BoxElement
         {
             for (int y = 0; y < this.height; y++)
             {
-                if (zBuffer[x][y] < Double.POSITIVE_INFINITY)
+                if (zBuffer[x][y] < Float.POSITIVE_INFINITY)
                 {
                     int gray = (int)(255 * (zBuffer[x][y] - min) / (max - min));
                     gray = Math.max(0, Math.min(255, gray)); // clamp
@@ -188,6 +188,7 @@ public class Scene extends BoxElement
     public void paint(Graphics2D g)
     {
         //drawBox(g, Color.WHITE);
+        //System.out.println("Print");
         resetBuffer();
 
         axis.transform2D(width, height, projMat, viewMat);
@@ -226,7 +227,7 @@ public class Scene extends BoxElement
                         break;
                     case 6:
                         obj.getTList().forEach( t -> { t.setTBLR(this.width, this.height);if (viewMat.isFacing(t.getN(), t.getC())){
-                                //t.paintDiffuse(zBuffer, cBuffer);
+                                t.paintSpecular(zBuffer, cBuffer, viewMat.getEye());
                             }});
                         break;
                     case 7:

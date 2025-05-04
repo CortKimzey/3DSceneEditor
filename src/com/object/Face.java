@@ -21,12 +21,24 @@ public class Face
     private Material mat;
     private int s = 0;
 
+    private int face = 0;
+
     public Face(int vNum, Material mat, int s)
     {
         this.data = new int[vNum][3];
         this.vNum = vNum;
         this.mat = mat;
         this.s = s;
+    }
+
+    public void setFace(int face)
+    {
+        this.face = face;
+    }
+
+    public int getFace()
+    {
+        return face;
     }
 
     public void addP(Point newPoint)
@@ -78,5 +90,21 @@ public class Face
             points.forEach( p -> { p.quickProjection(0,2);});
         else
             points.forEach( p -> { p.quickProjection(0,1);});
+    }
+
+    public void print()
+    {
+        for (int x = 0; x < vNum; x++)
+            System.out.print("V" + x + ": " + data[x][0] + " ");
+        System.out.print("\n");
+    }
+
+    public void write(java.io.FileWriter file) throws java.io.IOException
+    {
+        file.write("usemtl " + mat.getName());
+        file.write("\ns " + ((s == 0)? "off" : s));
+        file.write("\nf ");
+        for (int x = 0; x < vNum; x++)
+            file.write(data[x][0] + "/" + data[x][1] + "/" + data[x][2] + " ");
     }
 }

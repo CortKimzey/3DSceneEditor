@@ -103,6 +103,16 @@ public class BoxElement
       return height;
     }
 
+    public int getBLX()
+    {
+      return cnr[3].x();
+    }
+
+    public int getBLY()
+    {
+      return cnr[3].y();
+    }
+
     public Point2D getCNR(int corner)
     {
       return cnr[corner];
@@ -136,6 +146,11 @@ public class BoxElement
     public void setActive(boolean next)
     {
         active = next;
+    }
+
+    public void setInactive()
+    {
+        active = false;
     }
 
     public void drawBox(Graphics2D g, Color color)

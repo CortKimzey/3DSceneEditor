@@ -174,6 +174,11 @@ public class Vector extends Matrix
             data[x] /= mag;
     }
 
+    public String write()
+    {
+        return data[0] + " " + data[1] + " " + data[2];
+    }
+
     public void clamp()
     {
         for (int x = 0; x < 3; x++)
