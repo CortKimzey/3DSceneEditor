@@ -1,7 +1,7 @@
 // Cortland Kimzey
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: Modified to use sliders with text input and real-time updates
+// Description: Modified to use sliders with text input but apply changes only on button press
 
 package com.editor;
 
@@ -12,13 +12,13 @@ import com.object.Object;
 import com.use.BoxElement;
 import com.use.Slider;
 
-public class Transform extends BoxElement implements Slider.ValueChangeListener
+public class Transform extends BoxElement
 {
     private Slider xSlider, ySlider, zSlider;
     private String type;
     private boolean isRotation;
     private int min, max;
-    private Object targetObject = null; // Object to transform in real-time
+    private Object targetObject = null; // Object to transform when apply is pressed
 
     public Transform(int width, int height, int x, int y, String type)
     {
@@ -33,11 +33,6 @@ public class Transform extends BoxElement implements Slider.ValueChangeListener
         xSlider = new Slider(130, 16, x + 75, y + 22, min, max);
         ySlider = new Slider(130, 16, x + 75, y + 42, min, max);
         zSlider = new Slider(130, 16, x + 75, y + 62, min, max);
-        
-        // Set value change listeners
-        xSlider.setValueChangeListener(this);
-        ySlider.setValueChangeListener(this);
-        zSlider.setValueChangeListener(this);
     }
     
     public void setTargetObject(Object obj) {
@@ -122,34 +117,8 @@ public class Transform extends BoxElement implements Slider.ValueChangeListener
             ySlider.onDrag(x);
         else if (zSlider.isActive() && !zSlider.isTextActive())
             zSlider.onDrag(x);
-    }
-
-    @Override
-    public void onValueChanged(int newValue) {
-        // Real-time update when any slider changes
-        if (targetObject != null) {
-            applyRealTimeTransform();
-        }
-    }
-    
-    private void applyRealTimeTransform() {
-        // This method applies transformations in real-time as sliders change
-        // The actual implementation depends on how you want to handle the preview
-        // This is a simplified version - you might want to store original object state
-        // and reapply all transformations from that state
         
-        // Get current values from sliders
-        float[] data = getData();
-        
-        // TODO: Implement real-time preview logic
-        // For now, we'll just call the existing applyTrans method
-        applyTransPreview(data);
-    }
-    
-    private void applyTransPreview(float[] data) {
-        // This would be your implementation for real-time preview
-        // You might want to store the original object state and reapply from there
-        // Or implement a preview mode that can be reverted
+        // No real-time updates - changes will be applied only when the apply button is pressed
     }
 
     public float[] getData()

@@ -1,7 +1,7 @@
 // Cortland Kimzey
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: Modified to handle slider drag events and real-time updates
+// Description: Modified to handle slider drag events without real-time updates
 
 package com.editor;
 
@@ -91,6 +91,7 @@ public class Editor extends BoxElement
     {
         isDragging = true;
         // Pass drag events to the object editor for slider manipulation
+        // No real-time updates - transformations will only be applied when Apply button is clicked
         if (objEditor.isActive())
             objEditor.onDrag(x, y);
     }
