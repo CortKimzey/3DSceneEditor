@@ -44,7 +44,9 @@ public class AppCanvas extends Canvas implements KeyListener {
                 }
                 else if (evt.getButton() == 3)
                 {
-                    System.out.println("Right Click");
+                    System.out.println("[AppCanvas] Right click at: " + evt.getX() + ", " + evt.getY());
+                    menu.onRightClick(evt.getX(), evt.getY());
+                    repaint();
                 }
 
                 repaint();

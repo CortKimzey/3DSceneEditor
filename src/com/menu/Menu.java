@@ -67,6 +67,16 @@ public class Menu extends BoxElement
       }
    }
 
+   public void onRightClick(int x, int y) {
+      System.out.println("[Menu] Right click forwarded at: " + x + ", " + y);
+      rooms.forEach(room -> {
+         if (room.isActive()) {
+            System.out.println("[Menu] Forwarding to active room");
+            room.onRightClick(x, y);
+         }
+      });
+   }
+
    private java.io.File testOut()
    {
       JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
