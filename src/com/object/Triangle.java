@@ -198,6 +198,58 @@ public class Triangle
                     if (z < zBuff[x][y])
                     {
                         zBuff[x][y] = z;
+                        Vector surface = surfacePoint(bar);
+
+                        Vector ambient = Vector.mult(mat.getKa(), 0.3f);
+
+                        Vector L = Vector.sub(new Vector(18,12,23), surface);
+                        L.normalize();
+
+                        Vector N = Vector.sum(Vector.mult(abc[0].vn(), bar.x()),Vector.mult(abc[1].vn(), bar.y()),Vector.mult(abc[2].vn(), bar.z()));
+                        N.normalize();
+
+                        float dot = N.dot(L);
+                        if (dot < 0)
+                            dot = 0;
+                        Vector diffuse = Vector.mult(mat.getKd(), dot);
+
+                        Vector V = Vector.sub(eye, surface);
+                        V.normalize();
+
+                        Vector R = Vector.reflect(Vector.neg(L), N);
+                        R.normalize();
+
+                        dot = R.dot(V);
+                        if (dot < 0)
+                            dot = 0;
+
+                        Vector specular = Vector.mult(mat.getKs(), (float)Math.pow(dot, mat.getNs()));
+
+                        Vector outColor = Vector.sum(ambient,diffuse,specular);
+                        outColor.clamp();
+
+                        cBuff[x][y] = new Color(outColor.x(), outColor.y(), outColor.z());
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+    public void paint(float[][] zBuff, Color[][] cBuff, Vector eye)
+    {
+        setInvM();
+        for (int x = l; x < r; x++)
+        {
+            for (int y = b; y < t; y++)
+            {
+                if (inside(x,y))
+                {
+                    Vector bar = Vector.barMult(invM, x, y);
+                    float z = depth(bar.x(), bar.y(), bar.z());
+                    if (z < zBuff[x][y])
+                    {
+                        zBuff[x][y] = z;
 
                         Vector ambient = Vector.mult(mat.getKa(), 0.3f);
 
@@ -220,7 +272,8 @@ public class Triangle
             }
         }
     }
-
+    */
+    
     public void paintTest(Graphics2D g)
     {
         g.setColor(Color.BLACK);
