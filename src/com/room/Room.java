@@ -81,6 +81,8 @@ public class Room extends BoxElement
     {
       if (scene.isClicked(x,y))
         scene.onDrag(x,y);
+      else if (editor.isClicked(x,y))
+         editor.onDrag(x,y);
     }
 
     public void paint(Graphics2D g)
