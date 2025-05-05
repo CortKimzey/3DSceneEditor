@@ -60,6 +60,19 @@ public class Room extends BoxElement
         }
     }
 
+    public void onRightClick(int x, int y) {
+        System.out.println("[Room] Right click received at: " + x + ", " + y);
+
+        if (editor.isClicked(x, y)) {
+            System.out.println("[Room] Editor was clicked");
+            editor.removeObjectAt(x, y);
+        } else if (scene.isClicked(x, y)) {
+            System.out.println("[Room] Scene was clicked");
+        } else {
+            System.out.println("[Room] Click was not in scene or editor bounds");
+        }
+    }
+
     public void addObject(File file)
     {
         try {

@@ -65,6 +65,22 @@ public class Editor extends BoxElement
             objEditor.onClick(x,y);
     }
 
+    public void removeObjectAt(int x, int y) {
+        System.out.println("[Editor] Checking for clicked object at: " + x + ", " + y);
+        for (int i = 0; i < oList.size(); i++) {
+            Object obj = oList.get(i);
+            if (obj.isClicked(x, y)) {
+                System.out.println("[Editor] Object clicked: " + obj.getName() + ", removing.");
+                oList.remove(i);
+                if (!oList.isEmpty()) {
+                    objEditor.setObject(oList.get(0));
+                }
+                return;
+            }
+        }
+        System.out.println("[Editor] No object found at click location.");
+    }
+
     @Override
     public void setInactive()
     {
