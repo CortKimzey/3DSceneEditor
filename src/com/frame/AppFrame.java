@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Sets up the frame so it can be closed and adds our canvas that draws our application
 
 package com.frame;
 
