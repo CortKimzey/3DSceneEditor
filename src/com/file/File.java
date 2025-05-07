@@ -1,15 +1,12 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: File button to hold drop down options to change what the application is doing (Never Used)
 
 package com.file;
 
 import java.awt.*;
 import java.awt.event.*;
-
-//import com.file.NewRoom;
-//import com.file.Open;
 
 import com.use.DropDown;
 import com.use.Button;
@@ -24,12 +21,6 @@ public class File extends Button
         super(x, y, width, height, "File");
 
         drop = new DropDown(150, 100, cnr[3].getX(), cnr[3].getY());
-
-        //drop.addOption(new NewRoom(150, 20, cnr[3].getX(), cnr[3].getY()));
-        //drop.addOption(new Open(150, 20, cnr[3].getX(), cnr[3].getY() + 20));
-        //drop.addOption(new Save(150, 20, cnr[3].getX(), cnr[3].getY() + 40));
-        //drop.addOption(new SaveAs(150, 20, cnr[3].getX(), cnr[3].getY() + 60));
-        //drop.addOption(new Import(150, 20, cnr[3].getX(), cnr[3].getY() + 80));
     }
 
     public boolean isClicked(int x, int y)
@@ -56,7 +47,7 @@ public class File extends Button
 
     public int getCase(int x, int y)
     {
-        return 0;//drop.getCase(x,y);
+        return 0;
     }
 
     public void paint(Graphics2D g, Color color)
