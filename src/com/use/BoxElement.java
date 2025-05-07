@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Base Box element used behind everything placed on screen to monitor and contain our application elements
 
 package com.use;
 
