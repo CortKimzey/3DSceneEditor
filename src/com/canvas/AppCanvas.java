@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description:
+// Description: Application canvas that paints the elements of our application and monitors user input
 
 package com.canvas;
 
@@ -55,7 +55,6 @@ public class AppCanvas extends Canvas implements KeyListener {
             @Override
             public void mouseReleased(MouseEvent evt)
             {
-                //System.out.println("Bye Mouse");
             }
         });
 
@@ -66,8 +65,6 @@ public class AppCanvas extends Canvas implements KeyListener {
                 repaint();
             }
         });
-
-        //Add Component Listener to watch for application resize
     }
 
     @Override
