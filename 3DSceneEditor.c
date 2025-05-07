@@ -4,8 +4,6 @@
 
 int main()
 {
-    //system("for /r src/com %f in (*.java) do javac -d bin \"%f\"");
-
     system("javac -d bin src/com/canvas/*.java src/com/frame/*.java src/*.java src/com/menu/*.java src/com/editor/*.java src/com/scene/*.java src/com/use/*.java src/com/room/*.java src/com/file/*.java src/com/object/*.java src/com/point/*.java");
     system("echo Project Compiled");
 
