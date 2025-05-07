@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description:
+// Description: Hold the dimension of the canvas so other elements can base there size off this
 
 package com.canvas;
 
