@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Creates a frame that holds our application
 
 import java.awt.*;
 import java.awt.event.*;
