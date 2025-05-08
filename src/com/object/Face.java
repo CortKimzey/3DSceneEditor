@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Base face element that holds the data of all n-gon faces defines in the object class
 
 package com.object;
 
