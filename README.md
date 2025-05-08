@@ -12,6 +12,7 @@ java -cp bin SceneEditor
 All the source code for our project is contained inside the src directory
 
 The 3DSceneEditor.c file is a program used to compile all code inside the src directory and place the compiled code inside the bin directory
+
 3DSceneEditor and 3DSceneEditor.exe is the compiled 3DSceneEditor.c file that allows you to compile and run our program on Mac and Windows respectively
 
 ## Controls
