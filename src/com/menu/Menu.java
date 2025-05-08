@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Menu header that adds application features and holds rooms
 
 package com.menu;
 
@@ -26,7 +26,6 @@ import com.use.Button;
 public class Menu extends BoxElement
 {
    private DimCanvas d;
-   //private File fileControl;
    private ArrayList<Room> rooms = new ArrayList<Room>(1);
    private Button addFile = new Button(0,0,80,22, "Add Object");
 
@@ -34,7 +33,6 @@ public class Menu extends BoxElement
    {  
       super(0, 0, d.getWidth(), 22);
       this.d = d;
-      //fileControl = new File(0,0,30,22);
 
       rooms.add(new Room(0, 22, d));
       rooms.get(0).setActive(true);
