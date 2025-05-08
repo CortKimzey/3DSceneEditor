@@ -6,4 +6,4 @@ To run this program run the following command in the directory that contains the
 java -cp bin SceneEditor
 
 
-This is a java program that read and displays objected definined in a .obj file as well allowing you to manipulate location, size, and rotation in the the scene
+A Java 3D Object Manipulator built from scratch using concepts and algorithms learned in class. User is able to upload objects that are processed through the graphics rendering pipeline and are able to be viewed & manipulated in the scene.
