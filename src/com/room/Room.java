@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: A Room that holds a scene to display the objects and an editor that hold a list of objects and can maniplulate them
 
 package com.room;
 
