@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: A UI component Class that provides input fields for 3D transformations (such as translation, rotation, or scaling) along the X, Y, and Z axes. It extends the BoxElement class.
 
 package com.editor;
 
