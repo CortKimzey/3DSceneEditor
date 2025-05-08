@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Trianlge object that can add each pixels depth and color to a zBuffer and cBuffer respectively
 
 package com.object;
 
@@ -15,8 +15,6 @@ import com.point.Vertex2D;
 
 public class Triangle
 {
-    //private static int num = 1;
-
     private Point[] abc = new Point[3];
     private Material mat;
 
@@ -39,17 +37,7 @@ public class Triangle
         this.mat = mat;
         this.face = face;
 
-        //System.out.println("Triangle: " + num++);
-        //System.out.println("VN 1");
-        //abc[0].vn().print();
-        //System.out.println("VN 2");
-        //abc[1].vn().print();
-        //System.out.println("VN 3");
-        //abc[2].vn().print();
-
         setArea();
-        //if (!setInvM())
-            //System.out.println("Problem");
 
         edges[0] = new Edge(abc[0].v().get2D(), abc[1].v().get2D());
         edges[1] = new Edge(abc[1].v().get2D(), abc[2].v().get2D());
@@ -112,11 +100,7 @@ public class Triangle
                 invM.set(3 + x, abc[x].v().get2D().y());
                 invM.set(6 + x, 1f);
             }
-            //System.out.println("Not INV");
-            //invM.print();
             invM.invert();
-            //System.out.println("INV");
-            //invM.print();
             return true;
         }
     }
@@ -159,20 +143,14 @@ public class Triangle
 
     public void paint(float[][] zBuff)
     {
-        //if (face == 494)
-        //{
-        //System.out.println("Face: " + face);
         setInvM();
         for (int x = l; x < r; x++)
         {
             for (int y = b; y < t; y++)
             {
-                //System.out.println("X: " + x + ", Y: " + y);
-                if (inside(x,y))//Triangle(x,y))
+                if (inside(x,y))
                 {
-                    //System.out.println("in");
                     Matrix bar = Matrix.mult(invM, new Matrix(new float[]{x,y,1}, 3, 1));
-                    //System.out.println((bar.get(0) + bar.get(1) + bar.get(2)));
                     float z = depth(bar.get(0), bar.get(1), bar.get(2));
                     if (z < zBuff[x][y])
                     {
@@ -181,7 +159,6 @@ public class Triangle
                 }
             }
         }
-        //}
     }
 
     public void paint(float[][] zBuff, Color[][] cBuff, Vector eye)
@@ -234,45 +211,6 @@ public class Triangle
             }
         }
     }
-
-    /**
-    public void paint(float[][] zBuff, Color[][] cBuff, Vector eye)
-    {
-        setInvM();
-        for (int x = l; x < r; x++)
-        {
-            for (int y = b; y < t; y++)
-            {
-                if (inside(x,y))
-                {
-                    Vector bar = Vector.barMult(invM, x, y);
-                    float z = depth(bar.x(), bar.y(), bar.z());
-                    if (z < zBuff[x][y])
-                    {
-                        zBuff[x][y] = z;
-
-                        Vector ambient = Vector.mult(mat.getKa(), 0.3f);
-
-                        Vector L = Vector.sub(new Vector(18,12,23), surfacePoint(bar));
-                        L.normalize();
-                        Vector N = Vector.sum(Vector.mult(abc[0].vn(), bar.x()),Vector.mult(abc[1].vn(), bar.y()),Vector.mult(abc[2].vn(), bar.z()));
-                        N.normalize();
-                        float dot = N.dot(L);
-                        if (dot < 0)
-                            dot = 0;
-                        //System.out.println(dot);
-                        Vector diffuse = Vector.mult(mat.getKd(), dot);
-
-                        Vector outColor = Vector.sum(ambient,diffuse);
-                        outColor.clamp();
-
-                        cBuff[x][y] = new Color(outColor.x(), outColor.y(), outColor.z());
-                    }
-                }
-            }
-        }
-    }
-    */
     
     public void paintTest(Graphics2D g)
     {
@@ -373,8 +311,7 @@ public class Triangle
                         float dot = R.dot(V);
                         if (dot < 0)
                             dot = 0;
-                        //System.out.println(dot);
-                        //Vector diffuse = Vector.mult(mat.getKd(), dot);
+
                         Vector specular = Vector.mult(mat.getKs(), (float)Math.pow(dot, mat.getNs()));
                         specular.clamp();
                         cBuff[x][y] = new Color(specular.x(), specular.y(), specular.z());
