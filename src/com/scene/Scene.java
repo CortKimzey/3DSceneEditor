@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Scene that takes a list of 3D objects and paints them on a 2D plane use a zBuffer
 
 package com.scene;
 
@@ -187,12 +187,9 @@ public class Scene extends BoxElement
 
     public void paint(Graphics2D g)
     {
-        //drawBox(g, Color.WHITE);
-        //System.out.println("Print");
         resetBuffer();
 
         axis.transform2D(width, height, projMat, viewMat);
-        //axis.paint(g);
 
         editor.getOList().forEach( obj -> {
             if (obj.inView())
@@ -201,7 +198,6 @@ public class Scene extends BoxElement
                 switch (paintType)
                 {
                     case 0:
-                        //obj.getTList().forEach( t -> { t.paintTest(g);});
                         break;
                     case 1:
                         obj.getTList().forEach( t -> { t.paintOutline(zBuffer, cBuffer);});
