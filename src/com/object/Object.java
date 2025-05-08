@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Object that takes a .obj file and turns it into useable data for our application
 
 package com.object;
 
@@ -64,30 +64,7 @@ public class Object extends Button
 
         file.close();
 
-        /**
-
-        for (int g = 0; g < fList.size(); g++)
-        {
-            fList.get(g).setFace(g);
-            if (g == 494)
-                fList.get(g).print();
-        }
-        for (int g = 0; g < vList.size(); g++)
-        {
-            vList.get(g).setVNum(g);
-        }
-
-        */
-
         triangulate();
-
-        /**
-        for (int g = 0; g < tList.size(); g++)
-        {
-            if (tList.get(g).getFace() == 494)
-                tList.get(g).printV();
-        }
-        */
     }
 
     private void mtl(StringTokenizer line, String path)
@@ -263,13 +240,11 @@ public class Object extends Button
 
     private void triangulate()
     {
-        //fList.forEach( f -> {f.project();});
 
         for (int x = 0, lcv = fList.size(); x < lcv; x++)
         {
             Face f = fList.get(x);
             f.project();
-            //System.out.println("Face " + (x+1));
 
             ArrayList<Integer> indices = new ArrayList<>(0);
             for (int i = 0; i < f.getVNum(); i++)
@@ -280,28 +255,18 @@ public class Object extends Button
             while (indices.size() > 3)
             {
                 boolean earFound = false;
-                //System.out.println("Face Test");
                 for (int i = 0; i < indices.size(); i++)
                 {
                     int prev = indices.get((i - 1 + indices.size()) % indices.size());
                     int curr = indices.get(i);
                     int next = indices.get((i + 1) % indices.size());
 
-                    //System.out.println("A");
                     Point a = f.getP(prev);
-                    //a.print();
-                    //System.out.println("B");
                     Point b = f.getP(curr);
-                    //b.print();
-                    //System.out.println("C");
                     Point c = f.getP(next);
-                    //c.print();
 
-                    //System.out.println("Convex Test:");
                     if (Point.isConvex(a, b, c))
                         continue;
-
-                    //System.out.println("Convex");
 
                     boolean isEar = true;
                     for (int j = 0; j < f.getVNum(); j++)
@@ -309,10 +274,8 @@ public class Object extends Button
                         if (f.getV(j) == prev || f.getV(j) == curr || f.getV(j) == next)
                             continue;
 
-                        //f.getP(indices.get(j)).print();
                         if (Point.inTriangle(f.getP(indices.get(j)), a, b, c))
                         {
-                            //System.out.println("No Good");
                             isEar = false;
                             break;
                         }
