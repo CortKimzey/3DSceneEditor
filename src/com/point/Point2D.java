@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Holds data for a point in 2D space
 
 package com.point;
 
