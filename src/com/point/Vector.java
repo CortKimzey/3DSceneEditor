@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: A Vector object that hold data for a vector and allows for vector calculations
 
 package com.point;
 
