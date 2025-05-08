@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: 3D line that are clipped and projected to 2D then drawn using Bresenham Line Algorithm
 
 package com.object;
 
@@ -53,41 +53,26 @@ public class Line
             visable = false;
         else
         {
-            //System.out.println("P0: " + p0);
             if (p0 > 0)
                 lineClipping(p0, 0, 0);
             
-            //System.out.println("Final Clip");
-            //ends[0].getCP().print();
-
-            //System.out.println("P1: " + p1);
             if (p1 > 0)
                 lineClipping(p1, 1, 0);
             visable = true;
         }
 
         ends[0].set2D();
-        //System.out.println("P0:");
-        //System.out.println("X: " + ends[0].x2D() + ", Y: " + ends[0].y2D());
-        //System.out.println("Z: " + ends[0].z());
-        //ends[0].setLineZ();
         ends[1].set2D();
-        //System.out.println("P1:");
-        //System.out.println("X: " + ends[1].x2D() + ", Y: " + ends[1].y2D());
-        //System.out.println("Z: " + ends[1].z());
-        //ends[1].setLineZ();
     }
 
     private void lineClipping(byte rc, int v, int depth)
     {
-        //System.out.println("CLIP:");
         if ((rc & 0b00000001) > 0)
             newPoint(v,0, true);
         else if ((rc & 0b00000010) > 0)
             newPoint(v,0, false);
         else if ((rc & 0b00000100) > 0)
         {
-            //System.out.println("Bottom");
             newPoint(v,1, true);
         }
         else if ((rc & 0b00001000) > 0)
@@ -97,8 +82,6 @@ public class Line
         else if ((rc & 0b00100000) > 0)
             newPoint(v,2, false);
 
-        //System.out.println(ends[v].getRC());
-
         if (ends[v].getRC() > 0 && depth < 6)
             lineClipping(ends[v].getRC(), v, ++depth);
     }
@@ -106,11 +89,7 @@ public class Line
     private void newPoint(int v, int p, boolean neg)
     {
         Matrix p0 = ends[v].getCP();
-        //System.out.println("PO: ");
-        //p0.print();
         Matrix p1 = ends[(v == 0)? 1:0].getCP();
-        //System.out.println("P1: ");
-        //p1.print();
 
         float t = 0;
         if (neg)
@@ -129,17 +108,6 @@ public class Line
         hold = Matrix.add(p0,hold);
         ends[v].setCP(hold);
     }
-
-
-    /**
-    public void test(Graphics2D g)
-    {
-        g.setColor(color);
-        g.drawRect(ends[0].x2D(), ends[0].y2D(), 5, 5);
-        g.drawRect(ends[1].x2D(), ends[1].y2D(), 5, 5);
-        g.setColor(Color.BLACK);
-    }
-    */
 
    public void paint(float[][] zBuff, Color[][] cBuff)
    {
@@ -187,9 +155,6 @@ public class Line
             int cy = xy2[1] - xy1[1];
             float cz = z[1] - z[0];
             
-            //System.out.println("Start");
-            //System.out.println("X: " + xy1[0] + ", Y: " + xy1[1]);
-            //System.out.println("Z S: " + z[0]);
 
             if (Math.abs((float) cy / (float) cx) <= 1)
                 hamsL1M(Math.abs(cx), Math.abs(cy), cz / Math.abs(cx), xy1, z[0], inv, zBuff, cBuff);
@@ -215,15 +180,12 @@ public class Line
             }
             ++xy[0];
             z += zStep;
-            //System.out.println("Z: " + z);
             if (z < zBuff[xy[0]][xy[1]])
             {
                 zBuff[xy[0]][xy[1]] = z;
                 cBuff[xy[0]][xy[1]] = color;
             }
         }
-
-        //System.out.println("Z L: " + z);
     }
 
     private void hamsG1M(int cx, int cy, float zStep, int[] xy, float z, boolean inv, float[][] zBuff, Color[][] cBuff)
@@ -250,8 +212,6 @@ public class Line
                 cBuff[xy[0]][xy[1]] = color;
             }
         }
-
-        //System.out.println("Z L: " + z);
     }
 
     public static void paint(Vertex A, Vertex B, float[][] zBuff, Color[][] cBuff)
@@ -297,10 +257,6 @@ public class Line
             int cx = xy2[0] - xy1[0];
             int cy = xy2[1] - xy1[1];
             float cz = z[1] - z[0];
-            
-            //System.out.println("Start");
-            //System.out.println("X: " + xy1[0] + ", Y: " + xy1[1]);
-            //System.out.println("Z S: " + z[0]);
 
             if (Math.abs((float) cy / (float) cx) <= 1)
                 staticHamsL1M(Math.abs(cx), Math.abs(cy), cz / Math.abs(cx), xy1, z[0], inv, zBuff, cBuff);
@@ -325,15 +281,12 @@ public class Line
             }
             ++xy[0];
             z += zStep;
-            //System.out.println("Z: " + z);
             if (z < zBuff[xy[0]][xy[1]])
             {
                 zBuff[xy[0]][xy[1]] = z;
                 cBuff[xy[0]][xy[1]] = Color.BLACK;
             }
         }
-
-        //System.out.println("Z L: " + z);
     }
 
     private static void staticHamsG1M(int cx, int cy, float zStep, int[] xy, float z, boolean inv, float[][] zBuff, Color[][] cBuff)
@@ -360,8 +313,6 @@ public class Line
                 cBuff[xy[0]][xy[1]] = Color.BLACK;
             }
         }
-
-        //System.out.println("Z L: " + z);
     }
 
     public void paint(Graphics2D g)
@@ -392,8 +343,6 @@ public class Line
                 inv = (ends[0].y2D() < ends[1].y2D())? true : false;
             }
             drawPixel(g, xy1[0], xy1[1]);
-
-            //g.drawRect(xy1[0],xy1[1], 5, 5);
 
             int cx = xy2[0] - xy1[0];
             int cy = xy2[1] - xy1[1];
