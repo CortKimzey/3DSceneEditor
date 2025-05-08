@@ -1,7 +1,7 @@
 // Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Material data that determine the color of a face
 
 package com.object;
 
@@ -79,12 +79,10 @@ public class Material
 
     public void setText(String filePath)
     {
-        //this.text = new Texture(new File(filePath));
     }
 
     public void setBump(String filePath)
     {
-        //this.bump = new Texture(new File(filePath));
     }
 
     public void setNi()
