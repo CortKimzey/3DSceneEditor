@@ -9,19 +9,31 @@ java -cp bin SceneEditor
 To change the Viewing mode of the scene click on the scene to activate it and type any number from 0-7, to manipulate the camera position use w, a, s, d, shift, and space.
 
 0 - Only Axis of Scene
+
 1 - Every triangle of the objects draw
+
 2 - Only the triangle of the object that are visable
+
 3 - The depth of each pixel of the objects
+
 4 - The ambient light of the object
+
 5 - The Diffuse reflection of the objects
+
 6 - The Specular reflection of the object
+
 7 - Fully colored object.
 
 w - Move camera forwards
+
 s - Move camera back
+
 a - Move camera left
+
 d - Move camera right
+
 shift - Move camera down
+
 space - Move camera up
 
 
