@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Vertex that hold a position in 3D space as well as a projected position in 2D space
 
 package com.point;
 
@@ -67,11 +67,9 @@ public class Vertex extends Vector
     {
         this.width = width;
         this.height = height;
-        //System.out.println("Vert");
         ClipPosition = Matrix.mult(projMat, viewMat, point);
-        //ClipPosition.print();
-        xy.setX(((ClipPosition.get(0) / ClipPosition.get(3)) + 1) * 0.5f * width);   // X coordinate
-        xy.setY((1 - (ClipPosition.get(1) / ClipPosition.get(3))) * 0.5f * height);  // Y coordinate
+        xy.setX(((ClipPosition.get(0) / ClipPosition.get(3)) + 1) * 0.5f * width);
+        xy.setY((1 - (ClipPosition.get(1) / ClipPosition.get(3))) * 0.5f * height);
         z = (ClipPosition.get(2) / ClipPosition.get(3));
         z = ((z+1)/2);
     }
@@ -124,8 +122,8 @@ public class Vertex extends Vector
 
     public void set2D()
     {
-        xy.setX(((ClipPosition.get(0) / ClipPosition.get(3)) + 1) * 0.5f * width);   // X coordinate
-        xy.setY((1 - (ClipPosition.get(1) / ClipPosition.get(3))) * 0.5f * height);  // Y coordinate
+        xy.setX(((ClipPosition.get(0) / ClipPosition.get(3)) + 1) * 0.5f * width);
+        xy.setY((1 - (ClipPosition.get(1) / ClipPosition.get(3))) * 0.5f * height);
         z = ((ClipPosition.get(2) / ClipPosition.get(3)) + 1) / 2;
     }
 
