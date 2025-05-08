@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Three lines that are painted on the x, y, and z axis of our scene
 
 package com.scene;
 
@@ -31,21 +31,15 @@ public class Axis
 
     public void transform2D(int width, int height, Projection projMat, View viewMat)
     {
-        //System.out.println("X");
         axis[0].transform2D(width, height, projMat, viewMat);
-        //System.out.println("Y");
         axis[1].transform2D(width, height, projMat, viewMat);
-        //System.out.println("Z");
         axis[2].transform2D(width, height, projMat, viewMat);
     }
 
     public void paint(float[][] zBuff, Color[][] cBuff)
     {
-        //System.out.println("X");
         axis[0].paint(zBuff, cBuff);
-        //System.out.println("Y");
         axis[1].paint(zBuff, cBuff);
-        //System.out.println("Z");
         axis[2].paint(zBuff, cBuff);
     }
 
