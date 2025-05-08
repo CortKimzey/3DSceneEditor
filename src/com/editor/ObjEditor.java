@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Implements the Object Editor Menu visually and sets up the "Apply" buttton to activate the inputted transformations.
 
 package com.editor;
 
