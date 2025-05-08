@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Matrix object that creates a matrix and allows for different matrix calculations
 
 package com.point;
 
@@ -41,7 +41,6 @@ public class Matrix
                 data[loc] = input[x][y];
     }
 
-    //Functions for vertex manipulation
     public static Matrix identity(int size)
     {
         float[] outData = new float[size*size];
@@ -102,7 +101,6 @@ public class Matrix
         return output;
     }
 
-    //Getting the Data in the Matrix
     public float get(int loc)
     {
         return data[loc];
@@ -123,7 +121,6 @@ public class Matrix
         return this.col;
     }
 
-    //Setting the Data in the Matrix
     public void set(int loc, float dataIn)
     {
         this.data[loc] = dataIn;
@@ -140,7 +137,6 @@ public class Matrix
             data[x] = dataIn[x];
     }
 
-    //Arithmatic Operations
     public void div(float divisor)
     {
         for (int x = 0, loc = 0; x < this.row; x++)
@@ -161,7 +157,6 @@ public class Matrix
                 data[loc] = ((-1) * data[loc]);
     }
 
-    //Method for 4x1 Matrix
     public void interpolate()
     {
         if (row == 4 && col == 1)
@@ -189,29 +184,24 @@ public class Matrix
         int n = row;
         float[] augmented = new float[n * n * 2];
 
-        // Initialize augmented matrix [A | I]
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                augmented[i * (2 * n) + j] = data[i * n + j]; // Copy original matrix
-                augmented[i * (2 * n) + (j + n)] = (i == j) ? 1f : 0f; // Identity matrix
+                augmented[i * (2 * n) + j] = data[i * n + j];
+                augmented[i * (2 * n) + (j + n)] = (i == j) ? 1f : 0f;
             }
         }
 
-        // Forward elimination
         for (int i = 0; i < n; i++) {
-            // Find the pivot
             float pivot = augmented[i * (2 * n) + i];
             if (Math.abs(pivot) < 1e-6) {
                 System.out.println("Matrix is singular and cannot be inverted.");
                 return false;
             }
 
-            // Normalize the pivot row
             for (int j = 0; j < 2 * n; j++) {
                 augmented[i * (2 * n) + j] /= pivot;
             }
 
-            // Eliminate other rows
             for (int k = 0; k < n; k++) {
                 if (k == i) continue;
                 float factor = augmented[k * (2 * n) + i];
@@ -221,7 +211,6 @@ public class Matrix
             }
         }
 
-        // Copy back the right half (inverse) into the data array
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 data[i * n + j] = augmented[i * (2 * n) + (j + n)];
@@ -231,7 +220,6 @@ public class Matrix
         return true;
     }
 
-    //Static Methods for producing a new Matrix
     public static Matrix sub(Matrix A, Matrix B)
     {
         int row = A.row();
@@ -295,8 +283,6 @@ public class Matrix
         return mult(mult(A,B),C);
     }
 
-
-    //Output Data
     public String write()
     {
         String output = "";
