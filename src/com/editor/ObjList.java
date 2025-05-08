@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Implements the object list in the Object Editor menu, which displays a list of the objects in the scene. It can be clicked to select which object will be transformed.
 
 package com.editor;
 
