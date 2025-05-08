@@ -6,6 +6,7 @@ To run this program run the following command in the directory that contains the
 java -cp bin SceneEditor
 
 
+
 To change the Viewing mode of the scene click on the scene to activate it and type any number from 0-7, to manipulate the camera position use w, a, s, d, shift, and space.
 
 0 - Only Axis of Scene
@@ -37,7 +38,11 @@ shift - Move camera down
 space - Move camera up
 
 
+
+
 A Java 3D Object Manipulator built from scratch using concepts and algorithms learned in CS 4361.001. User is able to upload objects that are processed through the graphics rendering pipeline and are able to be viewed & manipulated in the scene.
+
+
 
 
 All the source code for our project is contained inside the src directory
