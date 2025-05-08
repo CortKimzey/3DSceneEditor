@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Creates the editor menu that allows users to manage a list of 3D objects and provides an interface to edit them through an object list panel and an object editor panel
 
 package com.editor;
 
@@ -66,11 +66,11 @@ public class Editor extends BoxElement
     }
 
     public void removeObjectAt(int x, int y) {
-        System.out.println("[Editor] Checking for clicked object at: " + x + ", " + y);
+        //System.out.println("[Editor] Checking for clicked object at: " + x + ", " + y);
         for (int i = 0; i < oList.size(); i++) {
             Object obj = oList.get(i);
             if (obj.isClicked(x, y)) {
-                System.out.println("[Editor] Object clicked: " + obj.getName() + ", removing.");
+                //System.out.println("[Editor] Object clicked: " + obj.getName() + ", removing.");
                 oList.remove(i);
                 if (!oList.isEmpty()) {
                     objEditor.setObject(oList.get(0));
@@ -78,7 +78,7 @@ public class Editor extends BoxElement
                 return;
             }
         }
-        System.out.println("[Editor] No object found at click location.");
+        //System.out.println("[Editor] No object found at click location.");
     }
 
     @Override
