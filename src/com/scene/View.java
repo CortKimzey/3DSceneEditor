@@ -1,7 +1,7 @@
-// Cortland Kimzey
+// Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: View Matrix that defines the position and orientation of the camera in our scene
 
 package com.scene;
 
