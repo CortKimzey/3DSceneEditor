@@ -1,7 +1,7 @@
 // Team 5
 // Professor Pushpa Kumar
 // CS 4361.001
-// Description: 
+// Description: Point class that hold all the data for each end point of a face
 
 package com.point;
 
@@ -47,15 +47,6 @@ public class Point
 
     public static boolean inTriangle(Point P, Point A, Point B, Point C)
     {
-        //System.out.println("Triangle Test");
-        //Vertex2D p = P.v().get2D();
-        //p.print();
-        //Vertex2D a = A.v().get2D();
-        //a.print();
-        //Vertex2D b = B.v().get2D();
-        //b.print();
-        //Vertex2D c = C.v().get2D();
-        //c.print();
         return Vertex2D.inTriangle(P.v().get2D(), A.v().get2D(), B.v().get2D(), C.v().get2D());
     }
 
